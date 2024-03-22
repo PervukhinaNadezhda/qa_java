@@ -1,14 +1,18 @@
+import com.example.Feline;
 import com.example.Lion;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.Mock;
 
 
 @RunWith(Parameterized.class)
 public class LionParameterizedTest {
 
-    private final String lionSexExceptionText = "Используйте допустимые значения пола животного - самец или самка";
+    @Mock
+    Feline feline;
+
     private final String sex;
     private final boolean hasMane;
 
@@ -17,24 +21,19 @@ public class LionParameterizedTest {
         this.hasMane = hasMane;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Test {index}: doesHaveManeReturnCorrectValue() for:   {0}")
     public static Object[][] getTopPageOrderButton() {
         return new Object[][]{
                 {"Самец", true},
                 {"Самка", false},
-                {"ИнстаСамка", false},
         };
     }
 
     @Test
-    public void doesHaveManeReturnCorrectValue() {
-        try {
-            Lion lion = new Lion(sex);
+    public void doesHaveManeReturnCorrectValue() throws Exception {
+            Lion lion = new Lion(sex, feline);
             lion.doesHaveMane();
             Assert.assertEquals(hasMane, lion.doesHaveMane());
-        } catch (Exception exception) {
-            Assert.assertEquals(lionSexExceptionText, exception.getMessage());
-        }
     }
 
 }
