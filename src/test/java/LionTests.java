@@ -15,7 +15,7 @@ public class LionTests {
     @Mock
     Feline feline;
 
-    private final String lionSexExceptionText = "Используйте допустимые значения пола животного - самец или самка";
+    private final String lionSexExceptionExpectedText = "Используйте допустимые значения пола животного - самец или самка";
 
     @Test
     public void getKittensInvokedTest() throws Exception {
@@ -41,11 +41,9 @@ public class LionTests {
 
     @Test
     public void lionSexExceptionTest() {
-        try {
-            Lion lion = new Lion("ИнстаСамка", feline);
-        } catch (Exception exception) {
-            Assert.assertEquals(lionSexExceptionText, exception.getMessage());
-        }
+        Exception exception = Assert.assertThrows(Exception.class,
+                () -> new Lion("ИнстаСамка", feline));
+        Assert.assertEquals(lionSexExceptionExpectedText, exception.getMessage());
     }
 
 }
