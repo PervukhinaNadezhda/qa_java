@@ -29,7 +29,7 @@ public class LionTests {
         Lion lion = new Lion("Самец", feline);
         Mockito.when(feline.getFood("Хищник"))
                 .thenReturn(List.of("Животные", "Птицы", "Рыба"));
-        Assert.assertEquals(lion.getFood(), feline.getFood("Хищник"));
+        Assert.assertEquals(feline.getFood("Хищник"), lion.getFood());
     }
 
     @Test
